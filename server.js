@@ -3,33 +3,38 @@ const express = require('express');
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-const getResult = (operation, req) => {
-	const numerals = {
-		firstNum: req.headers.firstnum,
-		secondNum: req.headers.secondnum,
-		result: function () {
-			if (operation === 'add') {
-				return this.firstNum + this.secondNum;
-			} else if (operation === 'sub') {
-				return '-';
-			} else if (operation === 'mul') {
-				return '*';
-			} else if (operation === 'div') {
-				return '/';
-			} else {
-				return 'error';
-			}
-		}
-	};
-	return numerals;
-};
+class Result {
+	constructor(firstNum, secondNum, operation) {
+		this.firstNum = parseInt(firstNum);
+		this.secondNum = parseInt(secondNum);
+	}
+
+	get result() {
+		return { ...this, result: this.calc() };
+	}
+
+	calc() {
+		// if (operation === 'add') {
+		return this.firstNum + this.secondNum;
+		// } else if (operation === 'sub') {
+		// 	return '-';
+		// } else if (operation === 'mul') {
+		// 	return '*';
+		// } else if (operation === 'div') {
+		// 	return '/';
+		// } else {
+		// 	return 'error';
+		// }
+	}
+}
 
 app.get('/', (req, res) => {
 	res.json('Hello world');
 });
 
 app.get('/add', (req, res) => {
-	res.json(getResult('add', req));
+	const reply = new Result(req.headers.firstnum, req.headers.secondnum, 'add');
+	res.json(reply.result);
 });
 
 app.get('/subtract', (req, res) => {
