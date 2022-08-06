@@ -54,7 +54,7 @@ app.get('/divide', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-	res.json('Invalid request.');
+	res.status(400).end();
 });
 
 app.listen(PORT, () => {
