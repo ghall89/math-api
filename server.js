@@ -9,7 +9,7 @@ const app = express();
 
 app.get('/', (req, res) => {
 	res.sendFile('README.md', {
-		root: path.join(__dirname, './')
+		root: path.join(__dirname, './'),
 	});
 });
 
@@ -34,6 +34,12 @@ app.get('/multiply', (req, res) => {
 app.get('/divide', (req, res) => {
 	validateHeaders(req, res);
 	const reply = new Result(req.headers.firstnum, req.headers.secondnum, '/');
+	res.json(reply.result);
+});
+
+app.get('/random', (req, res) => {
+	validateHeaders(req, res);
+	const reply = new Result(req.headers.firstnum, req.headers.secondnum, '?');
 	res.json(reply.result);
 });
 

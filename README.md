@@ -16,7 +16,10 @@ The API is live at `https://ghall-math.herokuapp.com`, and must be accessed with
 - `/subtract` - Subtract the second number from the first.
 - `/multiply` - Multiply both numbers.
 - `/divide` - Divide the second number from the first.
+- `/random` - Generate a random number between the first and second numbers.
 
 ### Headers
 
 You must provide 2 items in the header named `firstnum` and `secondnum`, and they must be integers.
+
+When using `/random`, `firstnum` should be less than `secondnum`.
